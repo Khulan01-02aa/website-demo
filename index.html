@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Авдар - онлайн магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class = "nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">Авдар</a>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products..">  
+                <button onclick="searchProducts()">Введите запрос</button>
+            </div>
+
+            <div class="nav-actions">
+                <a href="#" class="nav-btn" onclick="showPage('account')">🙋 Личный кабинет</a>
+                <a href="#" class="nav-btn" onclick="showPage('cart')">🛒 Корзина<span id="cartCount">0</span></a>
+                <a href="#" class="nav-btn" onclick="showPage('orders')">📫 Заказы</a>
+
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                📜
+            </button>
+        </div>
+    </header>
+    <div class="sidebar-overlay" onclick="toggleSidebar()">
+    </div>
+    <div class="sidebar">
+        <button class = "close-sidebar" onclick="toggleSidebar()">
+            ❌
+        </button>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" onclick="showPage('account');toggleSidebar()">🙋 Личный кабинет</a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('cart');toggleSidebar()">🛒 Корзина</a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('orders');toggleSidebar()">📫 Заказы</a>
+            </li>
+
+        </ul>
+
+    </div>
+    <main class="main-content">
+        <div id="homePage" class="page">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Добро пожаловать в Авдар!</h1>
+                    <p>
+                        Откройте для себя потрясающие товары по непревзойденным ценам.
+                    </p>
+                    <a href="#categories" class="hero-btn">Купить сейчас</a>
+
+                </div>
+
+            </section>
+            <section class="categories" id="categories">
+                <div class="container">
+                    <h2>
+                        Поиск по категориям
+                    </h2>
+                    <div class="category-grid" id="categoryGrid">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="categoryPage" class="page hidden">
+            <div class="container">
+                <h1 id="categoryTitle">
+                    Продукты
+                </h1>
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="sortBy">Сортировка:</label>
+                            <select id="sortBy" onchange="applyFilters()">
+                                <option value="relevance">По умолчанию</option>
+                                <option value="price-low">Дешевле</option>
+                                <option value="price-high">Дороже</option>
+                                <option value="rating">Рейтинг</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="priceRange">Максимальная цена:</label>
+                            <input type ="range" id="priceRange" min="0" max="200000" value="200000" onchange="applyFilters()">
+                            <span id="priceValue">200000💸</span>
+                        </div>
+                        <div class="filter-group">
+                            <label for="brandFilter">Бренд:</label>
+                            <select id="brandFilter" onchange="applyFilters()">
+                                <option value="">Бренды</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="product-grid" id="productGrid">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="productPage" class="page hidden">
+            <div class="container">
+                <div class="product-detail" id="productDetail">
+
+                </div>
+            </div>
+        </div>
+        <div id="cartPage" class="page hidden">
+            <div class="container">
+                <h1>
+                    Моя корзина
+                </h1>
+                <div id="cartItems">
+
+                </div>
+                <div class="cart-summary" id="cartSummary">
+                </div>
+            </div>
+        </div>
+
+        <div id="orderPage" class="page hidden">
+            <div class="container">
+                <h1>
+                    Оформить заказ
+                </h1>
+                <div id="orderSteps">
+                </div>
+            </div>
+        </div>
+        <div id="ordersPage" class="page hidden">
+            <div class="container">
+                <h1>Мой заказ</h1>
+                <div id="orderList">                  
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="accountPage" class="page hidden">
+            <div class="container">
+                <h1>Личный кабинет</h1>
+                <div class="order-form">
+                    <h2>Мои данные</h2>
+                    <div class="form-group">
+                        <label for="userName">ФИО:</label>
+                        <input type="text" id="userName" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email:</label>
+                        <input type="email" id="userEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="userPhone">Телефон:</label>
+                        <input type="tel" id="userPhone" placeholder="Enter your Phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="userAddress">Адрес:</label>
+                        <textarea id="userAddress" placeholder="Enter your address"></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="saveUserInfo()">
+                        Сохранить информацию
+
+                    </button>
+
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Авдар</h3>
+                    <p>
+                        Your trusted onlineshop
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Быстрые ссылки</h4>
+                    <ul>
+                        <li>
+                            <a href="#" onclick="showPage('home')">Home</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showPage('account')">Личный кабинет</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showPage('cart')">Корзина</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showPage('orders')">Заказы</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Asuult</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Shopping info</a></li>
+                    </ul>
+                </div>>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Email</a>
+                        
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 avdar. All rights reserved</p>
+
+            </div>
+        </div>
+
+    </footer>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
